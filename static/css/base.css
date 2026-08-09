@@ -1,0 +1,23 @@
+:root {
+    --bg-col: #10100d;
+    --bg-lighter-col: #323027;
+    --text-col: #fee5d7;
+    --link-col: #e3b893;
+    --gap: 5px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background-color: var(--bg-col);
+    color: var(--text-col);
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+    color: var(--link-col);
+}

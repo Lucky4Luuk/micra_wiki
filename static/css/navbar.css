@@ -1,0 +1,38 @@
+header {
+    position: relative;
+    height: max-content;
+
+    display: flex;
+    gap: var(--gap);
+
+    h1 {
+        margin-block: var(--gap);
+    }
+
+    img {
+        max-height: 100px;
+    }
+
+    .column {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.navbar {
+    background-color: var(--bg-lighter-col);
+    padding: var(--gap);
+
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap);
+
+    height: min-content;
+    margin-block: auto;
+
+    &, &>* {
+        margin: 0;
+    }
+}

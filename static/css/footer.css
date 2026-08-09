@@ -1,0 +1,7 @@
+.footer {
+    border-top: 2px solid var(--link-col);
+
+    &, &>* {
+        margin-block: var(--gap);
+    }
+}
