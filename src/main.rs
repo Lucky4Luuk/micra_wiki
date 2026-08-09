@@ -1,16 +1,45 @@
+#[macro_use]
+extern crate log;
+
 use std::sync::Arc;
 
 use axum::{Router, extract::State, routing::get};
 use tokio::sync::Mutex;
 
+mod db;
 mod frontend;
 
-#[derive(Default)]
-struct AppState {}
+use frontend::PageTemplater;
+
+use crate::db::Database;
+
+struct AppState {
+    db: Database,
+    templater: PageTemplater,
+}
+
+impl AppState {
+    pub async fn new() -> Self {
+        let db = Database::load_or_init("db_root")
+            .await
+            .expect("Failed to load or create database!");
+        info!("Database loaded succesfully!");
+
+        let templater = PageTemplater::new();
+
+        Self { db, templater }
+    }
+}
 
 #[tokio::main]
 async fn main() {
-    let state = Arc::new(Mutex::new(AppState::default()));
+    pretty_env_logger::formatted_timed_builder()
+        .filter_level(log::LevelFilter::max())
+        .init();
+
+    info!("Hello wiki!");
+
+    let state = Arc::new(Mutex::new(AppState::new().await));
 
     let app = Router::new().route("/", get(index)).with_state(state);
 
@@ -21,6 +50,6 @@ async fn main() {
 }
 
 async fn index(State(state): State<Arc<Mutex<AppState>>>) -> String {
-    let mut state = state.lock().await; // &mut AppState
+    // let mut state = state.lock().await;
     String::from("pee")
 }
